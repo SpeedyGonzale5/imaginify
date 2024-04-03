@@ -26,6 +26,11 @@ export async function addImage({ image, userId, path }: AddImageParams) {
       throw new Error("User not found");
     }
 
+    // Ensure the image object includes a title property
+    if (!image.title) {
+      throw new Error("Image title is required.");
+    }
+
     const newImage = await Image.create({
       ...image,
       author: author._id,
